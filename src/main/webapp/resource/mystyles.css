@@ -1,0 +1,8 @@
+table {border: 1px solid #B1CDE3; padding:0; margin:0 auto; margin-left:3px;margin-right:3px; width:98%; table-layout: fixed; border-collapse: collapse; }
+td,th {text-align:center; border: 1px solid #B1CDE3;font-size:14px;padding: 3px 3px 3px 5px;color: #4f6b72;height: 22px;}
+
+table tr:nth-child(even) {
+	background: #D7E1C5;
+	
+}
+

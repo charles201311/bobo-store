@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bobo.store.dao.ShopMapper">
+  <!-- 当增加店面时,需要返回该店面的主键ID -->
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+  insert into shop(name,created) values(#{name},#{created})
+  
+  </insert>
+  
+  <insert id="insertMiddle">
+  
+  insert into middle(gid,sid) values(#{gid},#{sid})
+  
+  </insert>
+
+
+<select id="select" resultType="shop">
+	select s.*,GROUP_CONCAT(g.`name`) as gname from shop s left join
+		middle m on s.id =m.sid left join goods g on m.gid =g.id
+		
+		where s.id=#{sid}
+
+</select>
+
+	<select id="selects" resultType="shop">
+		select s.*,GROUP_CONCAT(g.`name`) as gname from shop s left join
+		middle m on s.id =m.sid left join goods g on m.gid =g.id
+
+		<where>
+			<if test="sname!=null and sname !=''">
+
+				s.name like "%"#{sname}"%"
+
+			</if>
+			<if test="gids!=null and gids.length>0">
+
+				and m.gid in
+				<foreach collection="gids" item="gid" open="(" separator=","
+					close=")">
+					#{gid}
+				</foreach>
+
+
+
+
+			</if>
+
+
+
+		</where>
+
+
+   group by s.id
+
+	</select>
+
+
+</mapper>
